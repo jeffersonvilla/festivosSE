@@ -22,15 +22,15 @@ exports.verificar = (solicitud, respuesta) => {
         return respuesta.send(datos);
     });
 }
-router.get('/obtener/:anio', async (req, res) => {
+exports.obtener = (req, res) => {
     const anio = parseInt(req.params.anio);
 
-    FestivoRepositorio.obtenerFestivosPorAnio(anio, (error, resultado) => {
+    festivoServicio.obtenerFestivosPorAnio(anio, (error, resultado) => {
         if (error) {
             return res.status(500).json({ error: 'Error al obtener los festivos' });
         }
         return res.status(200).json(resultado);
     });
-});
+}
 
 module.exports = router;
