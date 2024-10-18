@@ -33,6 +33,24 @@ FestivoServicio.verificarFestivo = (año, mes, dia, respuesta) => {
     });
 };
 
+FestivoServicio.obtenerFestivosPorAnio = (año, respuesta) => {
+
+    festivoRepositorio.listarFestivos((error, datos) => {
+        if (error) {
+            return respuesta(error, datos);
+        }
+
+        // Calcular los festivos para el año
+        const festivosAño = calcularFestivos(datos, año);
+
+        festivosAño.sort((a, b) => {
+            return a.getFecha() - b.getFecha(); // Resta para ordenar por fechas
+        });
+
+        return respuesta(null, festivosAño);
+    });
+};
+
 function calcularFestivos(festivos, año) {
 
     if (festivos && festivos.length > 0) {
