@@ -32,5 +32,3 @@ exports.obtener = (req, res) => {
         return res.status(200).json(resultado);
     });
 }
-
-module.exports = router;
