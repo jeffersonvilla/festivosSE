@@ -24,7 +24,7 @@ jobs:
       - name: Build Docker image
         run: docker build -t apifestivos .
 
-      - name: Stop and remove old container (if exists)
+      - name: Stop and remove old container
         run: |
           docker stop dockerapifestivos
           docker rm dockerapifestivos
