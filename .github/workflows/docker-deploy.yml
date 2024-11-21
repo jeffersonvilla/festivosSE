@@ -1,0 +1,34 @@
+name: Build and Deploy Docker Container
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: self-hosted
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: '14'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Build Docker image
+        run: docker build -t apifestivos .
+
+      - name: Stop and remove old container (if exists)
+        run: |
+          docker stop dockerapifestivos || true
+          docker rm dockerapifestivos || true
+
+      - name: Run new container
+        run: docker container run --network redcalendario --name dockerapifestivos -p 3000:3000 -d apifestivos
