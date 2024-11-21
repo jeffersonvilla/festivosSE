@@ -26,8 +26,8 @@ jobs:
 
       - name: Stop and remove old container (if exists)
         run: |
-          docker stop dockerapifestivos || true
-          docker rm dockerapifestivos || true
+          docker stop dockerapifestivos
+          docker rm dockerapifestivos
 
       - name: Run new container
         run: docker container run --network redcalendario --name dockerapifestivos -p 3000:3000 -d apifestivos
